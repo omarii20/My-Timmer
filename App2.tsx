@@ -25,9 +25,17 @@ class App extends Component {
                     <TextInput keyboardType='email-address' placeholder='כתובת מייל' style={styles.inputs}></TextInput>
                 </View>
                 <View>
-                <LinearGradient colors={['#4c669f', '#3b5998', '#4c669f']}>
+                {/* <LinearGradient colors={['#4c669f', '#3b5998', '#4c669f']}>
                     <ImageBackground source={require('./images/login-button-arrow.png')} style={styles.buttonArrow} />
-                </LinearGradient>
+                </LinearGradient> */}
+                    <LinearGradient
+                    colors={['#ff6347', '#fa8072', '#ffff00']}
+                    style={styles.linearGradient}
+                    // locations={Number[0.1,1]}
+                    
+                    >
+                        <Image source={require('./images/login-button-arrow.png')} />
+                    </LinearGradient>
                     <Text>צריך עזרה ?</Text>
                     <Text
                         style={styles.hyperlinkStyle}
@@ -73,7 +81,6 @@ const styles = StyleSheet.create({
         justifyContent:'space-evenly',
     },
     buttonArrow:{
-        backgroundColor: 'yellow',
         borderRadius:50,
         width: 50,
         height:50,
@@ -90,6 +97,13 @@ const styles = StyleSheet.create({
         width:'10',
         height:'10'    
     },
+    linearGradient: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 100,
+        height: 50,
+        width: 50,
+      },
 });
 
 export default App;
