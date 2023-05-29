@@ -9,7 +9,7 @@ import {
     TextInput,
     Linking,
     Dimensions,
-    ImageBackground,
+    ImageBackground
 } from 'react-native';
 class App extends Component {
     render() {
@@ -24,18 +24,24 @@ class App extends Component {
                     </TextInput>
                     <TextInput keyboardType='email-address' placeholder='כתובת מייל' style={styles.inputs}></TextInput>
                 </View>
-                <View>
-                <LinearGradient colors={['#4c669f', '#3b5998', '#4c669f']}>
-                    <ImageBackground source={require('./images/login-button-arrow.png')} style={styles.buttonArrow} />
-                </LinearGradient>
-                    <Text>צריך עזרה ?</Text>
-                    <Text
-                        style={styles.hyperlinkStyle}
-                        onPress={() => {
-                        Linking.openURL('');
-                        }}>
-                        יצירת קשר עם התמיכה
-                    </Text>
+                <View style={styles.footerView}>
+                    <LinearGradient  style={{borderRadius:50}}
+                    colors={['#cd4c4c', '#cd5c5c', '#ffa500']}
+                    start={{x: 0, y: 0.8}}
+                    end={{x: 1, y: 1}}
+                    >
+                    <Image source={require('./images/login-button-arrow.png')} style={styles.buttonArrow}/>
+                    </LinearGradient>
+                    <View style={styles.text1}>
+                        <Text >צריך עזרה ?</Text>
+                        <Text
+                            style={styles.hyperlinkStyle}
+                            onPress={() => {
+                            Linking.openURL('');
+                            }}>
+                            יצירת קשר עם התמיכה
+                        </Text>
+                    </View>
                 </View>
             </SafeAreaView>
         )
@@ -50,11 +56,9 @@ const styles = StyleSheet.create({
       backgroundColor: 'white',
     },
     headerContainer: {
-        width: '100%',
-        height: windowHeight * 0.3,
-        flexDirection: 'row-reverse',
-        justifyContent:'space-between',
-        alignItems:'center',
+        height: windowHeight * 0.2,
+        flexDirection:'row-reverse',
+        alignItems:'flex-end',
       },
     logo:{
         height:100,
@@ -65,18 +69,18 @@ const styles = StyleSheet.create({
         borderColor:'gray',
         color:'black',
         height:50,
-        borderWidth:1
+        borderWidth:1,
+        marginTop:20
     },
     loginView: {
-        height: windowHeight * 0.4,
+        height: windowHeight * 0.5,
         alignItems:'center',
-        justifyContent:'space-evenly',
+        justifyContent:'center',
+    
     },
     buttonArrow:{
-        backgroundColor: 'yellow',
-        borderRadius:50,
-        width: 50,
-        height:50,
+        width: 60,
+        height:60,
     },
     hyperlinkStyle: {
         color: 'blue',
@@ -86,10 +90,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    logoSquare:{
-        width:'10',
-        height:'10'    
-    },
+    footerView:{
+        flexDirection:'row',
+        justifyContent: 'space-around',
+      },
+      text1:{
+        alignSelf:'center'        
+      }
+      
 });
 
 export default App;
