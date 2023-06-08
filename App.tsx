@@ -1,143 +1,97 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
+  Image,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
-  Image,
-  TextInput,
-  Linking
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.rootContainer}>
-      <Text
-        style={[
-          styles.text,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-    </View>
-  );
-}
-
+import LoginScreen from './src/Screens/Login'
+import TimerScreen from './src/Screens/Timer';
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   return (
-    <SafeAreaView style={{flexDirection: 'column',justifyContent:'flex-start', alignItems:'center'}}>
-      <View style={styles.rootContainer}></View>
-      <View style={styles.headerContainer}>
-        <View style={{width: 50, height:50}}></View>
-        <Text style={styles.text}> My Timer</Text>
-        <Image style={styles.logo} source={require('./images/logo.png')} />
-      </View>
-      <View style={styles.loginView}>
-        <Text>להתחברות לאפלקציית טיימר אנא הזינו את מספר הטלפון והמייל שלכם</Text>
-        <TextInput keyboardType='email-address' placeholder='הקלד אימייל' style={styles.inputs}></TextInput>
-        <TextInput keyboardType='numeric' placeholder='הקלד מספר' style={styles.inputs}></TextInput>
-      </View>
-      <View style={styles.footerView}> 
-        <View style={{alignSelf:'center'}}>
-          <Text>צריך עזרה ?</Text>
-          <Text
-            style={styles.hyperlinkStyle}
-            onPress={() => {
-              Linking.openURL('');
-            }}>
-            יצירת קשר עם התמיכה
-          </Text>
+    <SafeAreaView style={styles.safeAreaViewBase}>
+      <View style={styles.rootContainer}>
+        <View style={styles.headerContainer}>
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.logo}
+              resizeMode={'contain'}
+              source={require('./src/icons/logo.png')}
+            />
+          </View>
+          <Pressable
+            onPress={() => isAuthorized && setIsAuthorized(false)}
+            style={styles.headerTextContainer}>
+            <Text style={styles.logoText}>{'My Timer'}</Text>
+          </Pressable>
+          <View style={styles.rightContainer} />
         </View>
-        <View>
-          <Image style={styles.buttonArrow} source={require('./images/login-button-arrow.png')} />
+        <View style={styles.bodyContainer}>
+          {isAuthorized ? (
+            <TimerScreen />
+          ) : (
+            <LoginScreen setIsAuthorized={setIsAuthorized} />
+          )}
         </View>
       </View>
     </SafeAreaView>
   );
 }
+
 const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
+  bodyContainer: {flex: 9},
+  safeAreaViewBase: {
+    flex: 1,
+  },
   rootContainer: {
-    flex:1,
-    backgroundColor: 'whitesmoke',
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   headerContainer: {
     width: '100%',
     height: windowHeight * 0.1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    borderColor: 'white',
     backgroundColor: 'white',
-    flexDirection: 'row-reverse',
-    justifyContent:'space-between',
-    alignItems:'center',
   },
-  text: {
+  headerTextContainer: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightContainer: {
+    flex: 1,
+  },
+  logoText: {
     color: 'black',
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 35,
+    fontWeight: '900',
   },
   logo: {
+    width: '100%',
+    height: '100%',
+  },
+  logoContainer: {
+    flex: 1,
     width: 50,
-    height:50,
-  },
-  buttonArrow:{
-    backgroundColor: '#9932cc',
-    borderRadius:50,
-    width: 50,
-    height:50,
-  },
-  loginView: {
-    width: '80%',
-    height: windowHeight * 0.4,
-    justifyContent:'center',
-    alignItems:'center',
-    marginTop:100
-  },
-  inputs: {
-    width:'90%',
-    borderColor:'gray',
-    color:'black',
-    height:35,
-    marginTop:10,
-    borderWidth:1
-  },
-  footerView:{
-    flexDirection:'row-reverse',
-    justifyContent:'space-between',
-    width: '80%',
-    marginTop:100
-  },
-  hyperlinkStyle: {
-    color: 'blue',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
